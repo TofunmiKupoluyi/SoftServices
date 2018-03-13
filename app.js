@@ -12,10 +12,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 var connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "softservices"
+    host: process.env.MYSQL_HOST || "localhost",
+    user: process.env.MYSQL_USER || "root",
+    password: process.env.MYSQL_PASSWORD || "",
+    database: process.env.MYSQL_DB || "softservices"
 });
 var transporter = nodemailer.createTransport({
     service: "gmail",
