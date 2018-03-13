@@ -1,0 +1,389 @@
+<html ng-app="myApp-client">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- My Edits -->
+    <link rel="stylesheet" href="/staticcontent/editedcss.css">
+    <style>
+        .col-container {
+            display: table;
+            /* Make the container element behave like a table */
+            width: 100%;
+            /* Set full-width to expand the whole page */
+        }
+        
+        .col {
+            display: table-cell;
+            /* Make elements inside the container behave like table cells */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                <a class="navbar-brand" href="#"><b>SoftServices</b></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="../counsel">About Us</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Client Portal</a></li>
+                    <li class=""><a href="/adminLogin"><span class="glyphicon glyphicon-user"></span> Admin Portal</a></li>
+                </ul>
+
+                <div class="navbar-form navbar-input-group" style="text-align: center">
+                    <input class="searchBox" placeholder="Search ..."></input>
+                </div>
+            </div>
+
+
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-0">
+                <div class="panel panel-default" style="border-radius:5px 5px 5px 5px; border-top-style: solid; border-top-width:3px; border-top-color: rgb(60,141,188)">
+                    <div class="panel-body">
+                        <div class="row">
+                            <center><img class="img-thumbnail" src="/staticcontent/dist/img/avatar.png" style="width:100px; height:100px"></center>
+                        </div>
+                        <div class="row" ng-controller="clientHomeController">
+                            <br>
+                            <center><b>{{clientInformation.user_first_name + " " + clientInformation.user_last_name}} </b></center>
+                            <center><small>{{clientInformation.user_email}}</small></center>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default" style="border-radius:5px 5px 5px 5px; border-top-style: solid; border-top-width:3px; border-top-color: rgb(60,141,188)">
+                    <center>
+                        <h3><small><b>Settings</b></small></h3>
+                    </center>
+                    <br>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <center><b>Account Settings</b></center>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <center><b>Freelancer Settings</b></center>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 col-xs-0">
+                <div class="btn-group btn-group-justified">
+                    <a class="btn btn-default metroBoxes" data-toggle="modal" data-target="#personalModal"><b>Personal</b></a>
+                    <a class="btn btn-default metroBoxes" data-toggle="modal" data-target="#homeMaintenanceModal"><b>Home Maintenance</b></a>
+                    <a class="btn btn-default metroBoxes" data-toggle="modal" data-target="#domesticServicesModal"><b>Domestic Services</b></a>
+                </div>
+
+                <div class="btn-group btn-group-justified">
+                    <a class="btn btn-default metroBoxes2" data-toggle="modal" data-target="#informationTechnologyModal"><b>Information Technology</b></a>
+                    <a class="btn btn-default metroBoxes2"><b>Artwork</b></a>
+                    <a class="btn btn-default metroBoxes2"><b>Fashion</b></a>
+                </div>
+
+                <!--Personal Modal-->
+                <div class="modal fade" id="personalModal" tabindex="-1">
+                    <div class="vertical-alignment-helper">
+                        <div class="modal-dialog vertical-align-center">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+
+                                        </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        <center>Request a Service: Personal</center>
+                                    </h4>
+
+                                </div>
+
+                                <div class="modal-body" ng-controller="clientHomeController">
+                                    <div class="list-group">
+                                        <div ng-repeat="x in categories.groupings.Personal track by $index">
+                                            <a class="list-group-item" data-toggle="collapse" data-target="#{{idObject['Personal'][$index]}}">
+                                                <center><b>{{x[0]}}</b></center>
+                                            </a>
+                                            <!--Item Collapsible-->
+                                            <div id="{{idObject['Personal'][$index]}}" class="collapse" style="padding:10px">
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <input ng-model="nameArray[$index]" class="form-control" placeholder="Project Name">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <input ng-model="dateDue[$index]" type="text" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date Due">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <textarea class="form-control" ng-model="description[$index]" placeholder="Description"></textarea>
+                                                <br>
+                                                <button class=" btn-primary form-control" ng-click="submitProject('Personal', categories.groupings.Personal[$index][0], nameArray[$index], description[$index], dateDue[$index], categories.groupings['Personal'][$index][1])"><b>Submit Project</b></button>
+                                            </div>
+                                            <!--END-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of Personal Modal-->
+
+
+                <!--Domestic Services Modal-->
+                <div class="modal fade" id="domesticServicesModal" tabindex="-1">
+                    <div class="vertical-alignment-helper">
+                        <div class="modal-dialog vertical-align-center">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+
+                                        </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        <center>Request a Service: Domestic Services</center>
+                                    </h4>
+
+                                </div>
+
+                                <div class="modal-body" ng-controller="clientHomeController">
+                                    <div class="list-group">
+                                        <div ng-repeat="x in categories.groupings['Domestic Services'] track by $index">
+                                            <a class="list-group-item" data-toggle="collapse" data-target="#{{idObject['Domestic Services'][$index]}}">
+                                                <center><b>{{x[0]}}</b></center>
+                                            </a>
+                                            <!--Item Collapsible-->
+                                            <div id="{{idObject['Domestic Services'][$index]}}" class="collapse" style="padding:10px">
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <input ng-model="domesticServicesNameArray[$index]" class="form-control" placeholder="Project Name">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <input ng-model="domesticServicesDateDue[$index]" type="text" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date Due">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <textarea class="form-control" ng-model="domesticServicesDescription[$index]" placeholder="Description"></textarea>
+                                                <br>
+                                                <button class=" btn-primary form-control" ng-click="submitProject('Domestic Services', categories.groupings['Domestic Services'][$index][0] , domesticServicesNameArray[$index], domesticServicesDescription[$index], domesticServicesDateDue[$index], categories.groupings['Domestic Services'][$index][1])"><b>Submit Project</b></button>
+                                            </div>
+                                            <!--END-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of Domestic Services Modal-->
+
+                <!--Information Technology Modal-->
+                <div class="modal fade" id="informationTechnologyModal" tabindex="-1">
+                    <div class="vertical-alignment-helper">
+                        <div class="modal-dialog vertical-align-center">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+
+                                        </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        <center>Request a Service: Information Technology</center>
+                                    </h4>
+
+                                </div>
+
+                                <div class="modal-body" ng-controller="clientHomeController">
+                                    <div class="list-group">
+                                        <div ng-repeat="x in categories.groupings['Information Technology'] track by $index">
+                                            <a class="list-group-item" data-toggle="collapse" data-target="#{{idObject['Information Technology'][$index]}}">
+                                                <center><b>{{x[0]}}</b></center>
+                                            </a>
+                                            <!--Item Collapsible-->
+                                            <div id="{{idObject['Information Technology'][$index]}}" class="collapse" style="padding:10px">
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <input ng-model="informationTechnologyNameArray[$index]" class="form-control" placeholder="Project Name">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <input ng-model="informationTechnologyDateDue[$index]" type="text" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date Due">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <textarea class="form-control" ng-model="informationTechnologyDescription[$index]" placeholder="Description"></textarea>
+                                                <br>
+                                                <button class=" btn-primary form-control" ng-click="submitProject('Information Technology', categories.groupings['Information Technology'][$index][0] , informationTechnologyNameArray[$index], informationTechnologyDescription[$index], informationTechnologyDateDue[$index], categories.groupings['Information Technology'][$index][1])"><b>Submit Project</b></button>
+                                            </div>
+                                            <!--END-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of Information Technology Modal-->
+
+                <br>
+
+                <div class="panel panel-default" style="border-radius:5px 5px 5px 5px; border-top-style: solid; border-top-width:3px; border-top-color: rgb(60,141,188)">
+                    <center>
+                        <h3><small><b>Project Manager</b></small></h3>
+                    </center>
+                    <br>
+                    <div class="list-group" ng-controller="clientHomeController">
+                        <a href="" class="list-group-item" data-toggle="collapse" data-target="#ongoingProjectsDiv">
+                            <center><b>Ongoing Projects</b></center>
+                        </a>
+                        <div id="ongoingProjectsDiv" class="collapse">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12" ng-repeat="x in projects.ongoingProjects">
+                                    <div style=" padding:10px; border-style:solid; border-width:1px; border-color:aliceblue; margin:10px; border-left-color: rgb(60,141,188); border-left-width: 3px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis" ;>
+                                        <div class="progress">
+                                            <div class="progress-bar succeess" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{x.project_progress}}%;">
+                                                <span class="sr-only">{{x.project_progress}}% Complete</span>
+                                            </div>
+                                        </div>
+                                        <h4><small><b>Project Id: {{x.project_id}}</b></small></h4>
+                                        <h4><small><b>Project Name: {{x.project_name}}</b></small></h4>
+                                        <p></p>
+                                        <small>{{x.project_description}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="" class="list-group-item" data-toggle="collapse" data-target="#completedProjectsDiv">
+                            <center><b>Completed Projects</b></center>
+                        </a>
+                        <div id="completedProjectsDiv" class="collapse">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12" ng-repeat="x in projects.completedProjects">
+                                    <table class="table table-bordered" style="border-spacing: 10px; border-collapse: separate; border:none">
+                                        <tr>
+                                            <td style="border-left-color: rgb(60,141,188); border-left-width: 3px">
+                                                <div class="progress">
+                                                    <div class="progress-bar succeess" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{x.project_progress}}%;">
+                                                        <span class="sr-only">{{x.project_progress}}% Complete</span>
+                                                    </div>
+                                                </div>
+                                                <small><b>Project Id: {{x.project_id}}</b></small><br>
+
+                                                <small><b>Project Description: </b><br>{{x.project_description}}</small>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a href="" class="list-group-item" data-toggle="collapse" data-target="#poolProjectsDiv">
+                            <center><b>Projects in Pool</b></center>
+                        </a>
+                        <div id="poolProjectsDiv" class="collapse">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12" ng-repeat="x in projects.projectsInPool">
+                                    <div style=" padding:10px; border-style:solid; border-width:1px; border-color:aliceblue; margin:10px; border-left-color: rgb(60,141,188); border-left-width: 3px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis" ;>
+                                        <div class="progress">
+                                            <div class="progress-bar succeess" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{x.project_progress}}%;">
+                                                <span class="sr-only">{{x.project_progress}}% Complete</span>
+                                            </div>
+                                        </div>
+                                        <h4><small><b>Project Id: {{x.project_id}}</b></small></h4>
+                                        <h4><small><b>Project Name: {{x.project_name}}</b></small></h4>
+                                        <p></p>
+                                        <small>{{x.project_description}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-default" style="border-radius:5px 5px 5px 5px; border-top-style: solid; border-top-width:3px; border-top-color: rgb(60,141,188)">
+                    <center>
+                        <h3><small><b>Chat</b></small></h3>
+                    </center>
+                    <br>
+                    <div class="panel-body" style="padding:0px">
+                        <div class="col-md-6 col-xs-5">
+                            <div class="list-group" style="max-height:50%; overflow-y:scroll">
+                                <a class="list-group-item" style="overflow:hidden; text-overflow: ellipsis;">
+                                    <b>Project Name: </b>Untitled
+                                    <br><br> I was wondering how far you'd gotten with the project
+                                </a>
+                                <a class="list-group-item">
+                                    <b>Project Name: </b>Untitled
+                                    <br><br> I was wondering how far you'd gotten with the project
+                                </a>
+                                <a class="list-group-item">
+                                    <b>Project Name: </b>Untitled
+                                    <br><br> I was wondering how far you'd gotten with the project
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-7">
+                            <div class="panel panel-default">
+                                <div class="panel-body" style="max-height: 200px; min-height:200px; overflow-y: scroll;">
+
+                                </div>
+                                <div class="panel-footer">
+                                    <textarea placeholder="Type message ..." class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
+    <!-- ///////////////////////// JAVASCRIPT STUFF /////////////////////////////////////////////////-->
+    <!-- jQuery 2.2.3 -->
+    <script src="/staticcontent/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/staticcontent/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+    <!-- Angular app -->
+    <script src="/staticcontent/angularapp-client.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/staticcontent/dist/js/demo.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<html ng-app="myApp-client">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/staticcontent/editedcss.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><b>SoftServices</b></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="#">Home</a></li>
+                <li><a href="../counsel">About Us</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="/client"><span class="glyphicon glyphicon-log-in"></span> Client Portal</a></li>
+                <li><a href="/adminLogin"><span class="glyphicon glyphicon-user"></span> Admin Portal</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <center>
+                <h2>Soft Services Client Portal</h2>
+            </center>
+            <hr>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4" ng-controller="loginController" ng-cloak>
+                <div class="alert alert-success alert-dismissable" ng-show="successful">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Login Successful</strong>
+                </div>
+                <div class="alert alert-danger alert-dismissable" ng-show="failed">
+                    <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
+                    <strong><Center>Login Failed</center></strong>
+                </div>
+
+                <div class="panel panel-default" style="border-radius:5px 5px 5px 5px; border-top-style: solid; border-top-width:3px; border-top-color: rgb(60,141,188)">
+                    <div class="panel-body">
+                        <h4>Login to your account</h4>
+                        <hr>
+                        <form ng-submit="login()">
+                            <input ng-model="username" placeholder="Email" type="email" class="form-control">
+                            <br>
+                            <input ng-model="password" type="password" placeholder="Password" class="form-control">
+                            <br><br>
+                            <b><input type="Submit" class="form-control btn-primary" value="Sign In" style="border-radius:0px 0px"></b>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        <center><a href="#"><small>Forgot your password?</small></a></center>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-4"></div>
+        </div>
+    </div>
+    <!-- ///////////////////////// JAVASCRIPT STUFF /////////////////////////////////////////////////-->
+    <!-- jQuery 2.2.3 -->
+    <script src="/staticcontent/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/staticcontent/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+    <!-- Angular app -->
+    <script src="/staticcontent/angularapp-client.js"></script>
+</body>
+
+</html>
