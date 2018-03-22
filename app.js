@@ -5,6 +5,7 @@ var sjcl = require("sjcl");
 var session = require("express-session");
 var nodemailer = require("nodemailer");
 var app = express();
+app.set("view engine", "ejs");
 var http = require('http').Server(app);
 
 app.use(bodyParser.json());
@@ -42,6 +43,11 @@ app.use("/client", clientHomeRouter);
 app.use("/clientLogin", clientLoginRouter);
 app.use("/clientProject", clientProjectRouter);
 app.use("/staticcontent", express.static("./static/admin-lte"));
+app.use(express.static("public"));
+
+app.get("/", function(req, res){
+  res.render("index.ejs");
+})
 
 adminLoginRouter.get("/", function(req, res) {
     if (req.session.adminId) {
@@ -468,4 +474,7 @@ clientLoginRouter.post("/", function(req, res) {
         }
     });
 });
-app.listen( process.env.PORT || 3000);
+var port=3000;
+app.listen(port, function(req, res){
+  console.log("Server Up and Running at 3000");
+} );

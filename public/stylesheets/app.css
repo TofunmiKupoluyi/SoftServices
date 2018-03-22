@@ -1,0 +1,36 @@
+.ui .fixed .large .inverted .menu{
+  background:none;
+}
+
+body{
+  background-image:url("wall.jpg");
+  background-size: cover;
+  height: 50%;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.row-container{
+  background: white;
+  margin:15% 0 0 auto;
+  width:inherit;
+}
+
+.card{
+width: 15%;
+margin-top: 15px;
+margin-left:4%;
+
+}
+.footer-section{
+  background-color: white;
+}
+.search-bar{
+  margin-left: 37%;
+  margin-top: 15%;
+}
+
+
+.category-label{
+  margin-left: 3%;
+  font-size: 18px;
+}
